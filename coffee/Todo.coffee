@@ -1,4 +1,4 @@
-import { Observable, Store } from '../lib/Observable'
+import { Observable, Store } from './Observable'
 import Button from './Button'
 
 apiCall = () ->

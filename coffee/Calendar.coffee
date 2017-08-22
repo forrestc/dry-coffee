@@ -1,4 +1,4 @@
-import { Observable } from '../lib/Observable'
+import { Observable } from './Observable'
 import Button from './Button'
 
 import { store as todoStore } from './Todo'

@@ -1,4 +1,4 @@
-import { Observable } from '../lib/Observable'
+import { Observable } from './Observable'
 import PropTypes from 'prop-types'
 
 class Button extends Observable
