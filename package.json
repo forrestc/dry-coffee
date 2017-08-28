@@ -52,6 +52,6 @@
     "react-dom": "^15.1.0",
     "react-kup": "^1.0.0",
     "react-relay": "^1.0.0",
-    "styled-components": "^2.1.0"
+    "styled-jss": "^1.2.0"
   }
 }

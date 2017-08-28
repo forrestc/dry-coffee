@@ -1,7 +1,16 @@
-import { Observable } from './Observable'
-import Button from './Button'
+import styled from 'styled-jss'
 
+import { Observable, Theme } from './Observable'
+import Button from './Button'
 import { store as todoStore } from './Todo'
+
+theme = new Theme
+  month:
+    as: 'h1'
+    fontSize: 12
+  thisMonth:
+    as: '@month'
+    color: 'blue'
 
 class Calendar extends Observable
   constructor: (props) ->
@@ -29,8 +38,7 @@ class Calendar extends Observable
     n = todoStore.inDates?[date]?.length
     if n then "(#{n})"
 
-  brew: (v) ->
-    super(v)
+  render: () ->
     year = @state.date.getFullYear()
     month = @state.date.getMonth()
     monthDesc = year + '-' + (month + 1)
@@ -42,26 +50,31 @@ class Calendar extends Observable
     dates.unshift '' for [1..weekStart] if weekStart > 0
     weeks = (dates[(w*7 + 0)..(w*7 + 6)] for w in [0..Math.ceil(dates.length/7)])
 
-    v.div =>
-      v.h1 monthDesc
-      v.com Button, onClick: @prevMonth(), label: "<<"
-      v.com Button, onClick: @nextMonth(), label: ">>"
-      v.table =>
-        v.thead =>
-          v.tr =>
-            for wd, i in 'S M T W T F S'.split(' ')
-              v.th {key: 'weekday' + i}, wd
-        v.tbody =>
-          for w,wIndex in weeks
-            v.tr {key: monthDesc + '-week' +  wIndex}, =>
-              for d,dIndex in w
-                v.td {key: monthDesc + '-week' +  wIndex + '-day' + dIndex}, =>
-                  cell = =>
-                    v.span d
-                    v.sup @_todos(d)
-                  if @_isToday(d)
-                    v.b cell
-                  else
-                    v.p cell
+    theme.apply (v) =>
+      v.div =>
+        if monthDesc is '2017-8'
+          v.thisMonth monthDesc
+        else
+          v.month monthDesc
+
+        v.com Button, onClick: @prevMonth(), label: "<<"
+        v.com Button, onClick: @nextMonth(), label: ">>"
+        v.table =>
+          v.thead =>
+            v.tr =>
+              for wd, i in 'S M T W T F S'.split(' ')
+                v.th {key: 'weekday' + i}, wd
+          v.tbody =>
+            for w,wIndex in weeks
+              v.tr {key: monthDesc + '-week' +  wIndex}, =>
+                for d,dIndex in w
+                  v.td {key: monthDesc + '-week' +  wIndex + '-day' + dIndex}, =>
+                    cell = =>
+                      v.span d
+                      v.sup @_todos(d)
+                    if @_isToday(d)
+                      v.b cell
+                    else
+                      v.p cell
 
 export default Calendar
