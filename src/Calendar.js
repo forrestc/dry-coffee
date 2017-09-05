@@ -94,60 +94,60 @@ Calendar = class Calendar extends Observable {
       }
       return results1;
     })();
-    return theme.apply((v) => {
-      return v.div(() => {
+    return theme.apply((t) => {
+      return t.div(() => {
         if (monthDesc === '2017-8') {
-          v.thisMonth(monthDesc);
+          t.thisMonth(monthDesc);
         } else {
-          v.month(monthDesc);
+          t.month(monthDesc);
         }
-        v.com(Button, {
+        t.com(Button, {
           onClick: this.prevMonth(),
           label: "<<"
         });
-        v.com(Button, {
+        t.com(Button, {
           onClick: this.nextMonth(),
           label: ">>"
         });
-        return v.table(() => {
-          v.thead(() => {
-            return v.tr(() => {
+        return t.table(() => {
+          t.thead(() => {
+            return t.tr(() => {
               var i, l, len, ref2, results1, wd;
               ref2 = 'S M T W T F S'.split(' ');
               results1 = [];
               for (i = l = 0, len = ref2.length; l < len; i = ++l) {
                 wd = ref2[i];
-                results1.push(v.th({
+                results1.push(t.th({
                   key: 'weekday' + i
                 }, wd));
               }
               return results1;
             });
           });
-          return v.tbody(() => {
+          return t.tbody(() => {
             var l, len, results1, wIndex;
             results1 = [];
             for (wIndex = l = 0, len = weeks.length; l < len; wIndex = ++l) {
               w = weeks[wIndex];
-              results1.push(v.tr({
+              results1.push(t.tr({
                 key: monthDesc + '-week' + wIndex
               }, () => {
                 var d, dIndex, len1, m, results2;
                 results2 = [];
                 for (dIndex = m = 0, len1 = w.length; m < len1; dIndex = ++m) {
                   d = w[dIndex];
-                  results2.push(v.td({
+                  results2.push(t.td({
                     key: monthDesc + '-week' + wIndex + '-day' + dIndex
                   }, () => {
                     var cell;
                     cell = () => {
-                      v.span(d);
-                      return v.sup(this._todos(d));
+                      t.span(d);
+                      return t.sup(this._todos(d));
                     };
                     if (this._isToday(d)) {
-                      return v.b(cell);
+                      return t.b(cell);
                     } else {
-                      return v.p(cell);
+                      return t.p(cell);
                     }
                   }));
                 }

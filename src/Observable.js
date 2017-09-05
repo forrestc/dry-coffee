@@ -61,13 +61,5 @@ export const Observable = observer(
     initState(obj) {
       this.state = new Store(obj)
     }
-
-    brew(v) {
-      v.com = v.build
-    }
-
-    render() {
-      return reactKup(this.brew.bind(this))
-    }
   }
 )

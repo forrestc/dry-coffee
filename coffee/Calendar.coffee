@@ -50,31 +50,31 @@ class Calendar extends Observable
     dates.unshift '' for [1..weekStart] if weekStart > 0
     weeks = (dates[(w*7 + 0)..(w*7 + 6)] for w in [0..Math.ceil(dates.length/7)])
 
-    theme.apply (v) =>
-      v.div =>
+    theme.apply (t) =>
+      t.div =>
         if monthDesc is '2017-8'
-          v.thisMonth monthDesc
+          t.thisMonth monthDesc
         else
-          v.month monthDesc
+          t.month monthDesc
 
-        v.com Button, onClick: @prevMonth(), label: "<<"
-        v.com Button, onClick: @nextMonth(), label: ">>"
-        v.table =>
-          v.thead =>
-            v.tr =>
+        t.com Button, onClick: @prevMonth(), label: "<<"
+        t.com Button, onClick: @nextMonth(), label: ">>"
+        t.table =>
+          t.thead =>
+            t.tr =>
               for wd, i in 'S M T W T F S'.split(' ')
-                v.th {key: 'weekday' + i}, wd
-          v.tbody =>
+                t.th {key: 'weekday' + i}, wd
+          t.tbody =>
             for w,wIndex in weeks
-              v.tr {key: monthDesc + '-week' +  wIndex}, =>
+              t.tr {key: monthDesc + '-week' +  wIndex}, =>
                 for d,dIndex in w
-                  v.td {key: monthDesc + '-week' +  wIndex + '-day' + dIndex}, =>
+                  t.td {key: monthDesc + '-week' +  wIndex + '-day' + dIndex}, =>
                     cell = =>
-                      v.span d
-                      v.sup @_todos(d)
+                      t.span d
+                      t.sup @_todos(d)
                     if @_isToday(d)
-                      v.b cell
+                      t.b cell
                     else
-                      v.p cell
+                      t.p cell
 
 export default Calendar

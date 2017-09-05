@@ -1,8 +1,10 @@
-import { Observable, Store } from './Observable'
+import { Observable, Store, Theme } from './Observable'
 import Button from './Button'
 
 apiCall = () ->
   fetch('http://localhost:10040/autocomplete?types=chain&q=starbucks')
+
+theme = new Theme
 
 class TodoItem extends Store
   constructor: (value) ->
@@ -75,31 +77,31 @@ class Todo extends Observable
   filter: (e) ->
     store.filter = e.target.value
 
-  brew: (v) ->
-    super(v)
-    v.div =>
-      v.h1 @props.name
-      v.input
-        type: 'text'
-        placeholder: 'new todo'
-        onKeyPress: @createTodo.bind(@)
-      v.input
-        type: 'text'
-        placeholder: 'filter'
-        value: store.filter
-        onChange: @filter.bind(@)
-      v.com Button, onClick: @clearCompleted, label: 'Clear Completed'
+  render: () ->
+    theme.apply (t) =>
+      t.div =>
+        t.h1 @props.name
+        t.input
+          type: 'text'
+          placeholder: 'new todo'
+          onKeyPress: @createTodo.bind(@)
+        t.input
+          type: 'text'
+          placeholder: 'filter'
+          value: store.filter
+          onChange: @filter.bind(@)
+        t.com Button, onClick: @clearCompleted, label: 'Clear Completed'
 
-      v.ul =>
-        for todo in store.filteredTodos
-          v.li key: todo.id, =>
-            v.input
-              type: 'checkbox'
-              id: todo.id
-              value: todo.complete
-              checked: todo.complete
-              onChange: @toggle.bind(@)
-            v.span todo.action
-            v.small "(#{todo.due})"
+        t.ul =>
+          for todo in store.filteredTodos
+            t.li key: todo.id, =>
+              t.input
+                type: 'checkbox'
+                id: todo.id
+                value: todo.complete
+                checked: todo.complete
+                onChange: @toggle.bind(@)
+              t.span todo.action
+              t.small "(#{todo.due})"
 
 export default Todo
