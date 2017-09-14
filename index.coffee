@@ -8,7 +8,7 @@ opts =
   historyApiFallback: true
 
 server = new WebpackDevServer webpack(config), opts
-server.listen 3001, 'localhost', (err, result) ->
+server.listen 3001, '127.0.0.1', (err, result) ->
   console.log(err) if (err)
 
   console.log('Listening at localhost:3001')

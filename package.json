@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A super DRY javascript framework that integrates React, Mobx, and Coffeescript v2.",
   "scripts": {
-    "compile": "coffee -w -o ./src -c ./coffee",
+    "compile": "coffee -w -o ./src -c ./examples",
     "start": "coffee index.coffee",
     "relay": "relay-compiler --src ./app/javascript/components/ --schema ./app/graphql/schema.graphql",
     "lint": "eslint src"
