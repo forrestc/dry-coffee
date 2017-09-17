@@ -2,15 +2,15 @@
 var Button, theme;
 
 import {
-  Observable,
+  Component,
   Theme
-} from './Observable';
+} from './superdry';
 
 import PropTypes from 'prop-types';
 
 theme = new Theme;
 
-Button = class Button extends Observable {
+Button = class Button extends Component {
   constructor(props) {
     super(props);
   }

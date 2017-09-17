@@ -1,18 +1,18 @@
 import styled from 'styled-jss'
 
-import { Observable, Theme } from './Observable'
+import { Component, Theme } from './superdry'
 import Button from './Button'
 import { store as todoStore } from './Todo'
 
 theme = new Theme
   month:
-    as: 'h1'
+    _as: 'h1'
     fontSize: 12
   thisMonth:
-    as: '@month'
+    _as: '@month'
     color: 'blue'
 
-class Calendar extends Observable
+class Calendar extends Component
   constructor: (props) ->
     super(props)
     @initState

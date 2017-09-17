@@ -2,10 +2,10 @@
 var Todo, TodoItem, TodoStore, apiCall, theme;
 
 import {
-  Observable,
+  Component,
   Store,
   Theme
-} from './Observable';
+} from './superdry';
 
 import Button from './Button';
 
@@ -92,11 +92,7 @@ store.initData();
 
 window.store = store;
 
-Todo = class Todo extends Observable {
-  constructor(props) {
-    super(props);
-  }
-
+Todo = class Todo extends Component {
   createTodo(e) {
     var todo, value;
     if (e.which === 13) {

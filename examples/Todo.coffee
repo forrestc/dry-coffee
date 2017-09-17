@@ -1,4 +1,4 @@
-import { Observable, Store, Theme } from './Observable'
+import { Component, Store, Theme } from './superdry'
 import Button from './Button'
 
 apiCall = () ->
@@ -56,10 +56,7 @@ export store = new TodoStore
 store.initData()
 window.store = store
 
-class Todo extends Observable
-  constructor: (props) ->
-    super(props)
-
+class Todo extends Component
   createTodo: (e) ->
     if (e.which is 13)
       value = e.target.value

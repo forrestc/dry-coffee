@@ -1,9 +1,9 @@
-import { Observable, Theme } from './Observable'
+import { Component, Theme } from './superdry'
 import PropTypes from 'prop-types'
 
 theme = new Theme
 
-class Button extends Observable
+class Button extends Component
   constructor: (props) ->
     super(props)
 
