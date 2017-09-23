@@ -1,4 +1,4 @@
-import { countBy, every, find, filter, isEmpty, remove } from 'lodash'
+import { every, find, filter, isEmpty, pick, remove } from 'lodash'
 import { Component, Store, Theme } from '../superdry'
 import theme from './theme'
 
@@ -91,9 +91,7 @@ class EntryList extends Component
 
   render: ->
     theme.apply (t) =>
-      main = if isEmpty($.entries) then 'emptyMain' else 'main'
-
-      t[main] =>
+      t.with('main', empty: isEmpty($.entries)) =>
         t.toggle
           name: "toggle"
           checked: every($.entries, 'completed')
@@ -101,8 +99,7 @@ class EntryList extends Component
         t.toggleLabel { for: 'toggle' }, 'Mark all as complete'
         t.list =>
           $.visibleEntries.forEach (entry) =>
-            task = if entry.editing then 'editingTask' else 'task'
-            t[task] =>
+            t.with('task', pick(entry, 'editing')) =>
               if entry.editing
                 t.taskEdit
                   value: entry.description
@@ -115,8 +112,8 @@ class EntryList extends Component
                 t.taskToggle
                   checked: entry.completed
                   onClick: => @check(entry.id)
-                label = if entry.completed then 'completedLabel' else 'entryLabel'
-                t[label] { onDoubleClick: => @edit(entry.id) }, entry.description
+                labelOpts = { onDoubleClick: => @edit(entry.id) }
+                t.with('entryLabel', pick(entry, 'completed')) labelOpts, entry.description
                 t.destroyButton { onClick: => @delete(entry.id) }
 
 class Footer extends Component
@@ -133,8 +130,8 @@ class Footer extends Component
           t.counter $.entriesLeft
           t.filters =>
             ['All', 'Active', 'Completed'].forEach (visibility) =>
-              button = if visibility is $.visibility then 'filteringBtn' else 'filterBtn'
-              t[button] { onClick: => @changeVisibility(visibility) }, visibility
+              buttonOpts = { onClick: => @changeVisibility(visibility) }
+              t.with('filterBtn', current: (visibility is $.visibility)) buttonOpts, visibility
 
           completedCount = $.completedEntries.length
           if completedCount > 0

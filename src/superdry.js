@@ -87,6 +87,13 @@ export class Theme {
         }
       }
 
+      v.with = (name, state) => {
+        for (let [key, value] of Object.entries(state)) {
+          if (value) return v[name + '.' + key]
+        }
+        return v[name]
+      }
+
       v.com = v.build
       fn(v)
     }.bind(this)

@@ -61,7 +61,7 @@ defaultTheme = new Theme
     zIndex: 2
     borderTop: '1px solid #e6e6e6'
     visibility: 'visible'
-  emptyMain:
+  'main.empty':
     _as: '@main'
     visibility: 'hidden'
 
@@ -100,6 +100,12 @@ defaultTheme = new Theme
     '&:hover button':
       display: 'block'
       color: '#af5b5e'
+  'task.editing':
+    _as: '@task'
+    borderBottom: 'none'
+    padding: 0
+    '&:last-child':
+      marginBottom: -1
   destroyButton:
     _as: 'button'
     display: 'none'
@@ -126,12 +132,6 @@ defaultTheme = new Theme
       content: '"×"'
     '&:hover':
       color: '#af5b5e'
-  editingTask:
-    _as: '@task'
-    borderBottom: 'none'
-    padding: 0
-    '&:last-child':
-      marginBottom: -1
   taskEdit:
     _as: '@edit'
     display: 'block'
@@ -163,7 +163,7 @@ defaultTheme = new Theme
     display: 'block'
     lineHeight: 1.2
     transition: 'color 0.4s'
-  completedLabel:
+  'entryLabel.completed':
     _as: '@entryLabel'
     color: '#d9d9d9'
     textDecoration: 'line-through'
@@ -211,7 +211,7 @@ defaultTheme = new Theme
     borderRadius: 3
     '&:hover':
       borderColor: 'rgba(175, 47, 47, 0.1)'
-  filteringBtn:
+  'filterBtn.current':
     _as: '@filterBtn'
     borderColor: 'rgba(175, 47, 47, 0.2)'
   clearButton:
