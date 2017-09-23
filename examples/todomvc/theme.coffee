@@ -199,9 +199,6 @@ defaultTheme = new Theme
     left: 0
     position: 'absolute'
   filter:
-    _as: 'li'
-    display: 'inline'
-  filterBtn:
     _as: 'a'
     color: 'inherit'
     margin: 3
@@ -211,8 +208,8 @@ defaultTheme = new Theme
     borderRadius: 3
     '&:hover':
       borderColor: 'rgba(175, 47, 47, 0.1)'
-  'filterBtn.current':
-    _as: '@filterBtn'
+  'filter.current':
+    _as: '@filter'
     borderColor: 'rgba(175, 47, 47, 0.2)'
   clearButton:
     float: 'right'

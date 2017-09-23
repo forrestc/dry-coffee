@@ -53,8 +53,8 @@ class TodoStore extends Store
       console.log e
 
 export store = new TodoStore
-store.initData()
-window.store = store
+# store.initData()
+# window.store = store
 
 class Todo extends Component
   createTodo: (e) ->

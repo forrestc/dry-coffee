@@ -88,10 +88,6 @@ TodoStore = class TodoStore extends Store {
 
 export var store = new TodoStore;
 
-store.initData();
-
-window.store = store;
-
 Todo = class Todo extends Component {
   createTodo(e) {
     var todo, value;
