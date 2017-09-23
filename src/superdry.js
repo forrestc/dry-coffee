@@ -1,4 +1,4 @@
-import { extendObservable, computed, action } from 'mobx'
+import { action, computed, extendObservable, observe, toJS } from 'mobx'
 import { Component as ReactComponent } from 'react';
 import { observer } from 'mobx-react';
 import reactKup from 'react-kup';
@@ -14,12 +14,17 @@ export class Store {
       }
     }
     extendObservable(this, obj)
+    if (this.onChange)
+      observe(this, this.onChange.bind(this))
+  }
+
+  json(obj) {
+    return toJS(obj || this)
   }
 
   action(fn) {
     return action(fn)
   }
-
 }
 
 export class Theme {
@@ -29,13 +34,18 @@ export class Theme {
       const def = components[name]
 
       // TODO maybe we can use jss 'extends'
-      const elem = def['_as'] || 'div'
-      // TODO support input(checkbox)
-      this.define(name, elem, omit(def, '_as'))
+      let elem = def['_as'] || 'div'
+      let m = elem.match(/(\w+)\((\w+)\)/)
+      let defaultArgs = {}
+      if (m) {
+        elem = m[1]
+        defaultArgs.type = m[2]
+      }
+      this.define(name, elem, omit(def, '_as'), defaultArgs)
     }
   }
 
-  define(name, base, css) {
+  define(name, base, css, defaultArgs) {
     if (base.substring(0, 1) === '@')
       base = this.coms[base.substring(1)]
 
@@ -43,12 +53,12 @@ export class Theme {
     if (isObject(base)) {
       css = merge(base.css, css)
     }
-    console.log(111, name, root, css)
     this.coms[name] = {
       root: root,
       base: isObject(base) ? base.name : base,
       name: name,
       css: css,
+      defaultArgs: defaultArgs,
       component: styled(root)(css)
     }
   }
@@ -70,7 +80,8 @@ export class Theme {
                 attrs.onInput(e.target.value)
               }
             }
-            args[0] = omit(attrs, ['onEnter', 'onInput'])
+
+            args[0] = merge(com.defaultArgs, omit(attrs, ['onEnter', 'onInput']))
           }
           v.build(com.component, ...args)
         }

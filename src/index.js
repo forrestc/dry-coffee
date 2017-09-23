@@ -27,12 +27,6 @@ element = function() {
   return reactKup(function(k) {
     return k.build(AppContainer, function() {
       return k.div(function() {
-        k.build(Calendar, {
-          date: new Date
-        });
-        k.build(Todo, {
-          name: 'Home'
-        });
         return k.build(TodoMvc);
       });
     });

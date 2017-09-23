@@ -13,8 +13,8 @@ element = () ->
   reactKup (k) ->
     k.build AppContainer, ->
       k.div ->
-        k.build Calendar, {date: new Date}
-        k.build Todo, {name: 'Home'}
+        #k.build Calendar, {date: new Date}
+        #k.build Todo, {name: 'Home'}
         k.build TodoMvc
 
 render(element(), document.getElementById('root'))
