@@ -6,15 +6,14 @@ import api from './api'
 # Stores
 
 class Entry extends Store
-  constructor: (description, completed = false) ->
+  constructor: (description, load = {}) ->
     super
       description: description
-      completed: completed
+      completed: load.completed or false
       editing: false
-      id: Date.now()
+      id: load.id or Date.now()
 
-  saveUpdate: ->
-    console.log 'PUT', @id, @json()
+  saveUpdate: -> api.patch(@id, @json())
 
 class TodoStore extends Store
   constructor: ->
@@ -37,14 +36,13 @@ class TodoStore extends Store
         switch count
           when 0 then ''
           when 1 then '1 item left'
-          else "#{count} items left"
 
   load: () ->
-    for entry in (await api.list())
-      @entries.push new Entry(entry.description, entry.completed)
+    for obj in (await api.list())
+      @entries.push new Entry(obj.description, obj)
 
-  saveCreate: (entry) -> console.log 'POST', @json(entry)
-  saveDelete: (id) -> console.log 'DELETE', id
+  saveCreate: (entry) -> api.create(@json(entry))
+  saveDelete: (id) -> api.delete(id)
 
 export $ = new TodoStore
 window.store = $
