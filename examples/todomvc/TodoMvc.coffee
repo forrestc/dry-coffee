@@ -13,7 +13,8 @@ class Entry extends Store
       editing: false
       id: load.id or Date.now()
 
-  saveUpdate: -> api.patch(@id, @json())
+  onUpdate: ->
+    api.patch(@id, @json()) unless @editing
 
 class TodoStore extends Store
   constructor: ->
@@ -37,12 +38,14 @@ class TodoStore extends Store
           when 0 then ''
           when 1 then '1 item left'
 
+  onEntriesCreate: (entry) -> api.create(entry) unless @loading
+  onEntriesDelete: (entry) -> api.delete(entry.id)
+
   load: () ->
+    @loading = true
     for obj in (await api.list())
       @entries.push new Entry(obj.description, obj)
-
-  saveCreate: (entry) -> api.create(@json(entry))
-  saveDelete: (id) -> api.delete(id)
+    @loading = false
 
 export $ = new TodoStore
 window.store = $
@@ -58,7 +61,6 @@ class Input extends Component
     entry = new Entry($.input)
     $.entries.push entry
     $.input = ''
-    $.saveCreate(entry)
 
   render: ->
     theme.apply (t) =>
@@ -80,19 +82,16 @@ class EntryList extends Component
   check: (id) ->
     entry = @_entry(id)
     entry.completed = not entry.completed
-    entry.saveUpdate()
 
   edit: (id, isEditing = true) ->
     entry = @_entry(id)
     entry.editing = isEditing
-    entry.saveUpdate() if isEditing is false
 
   update: (id, text) ->
     @_entry(id).description = text
 
   delete: (id) ->
     remove $.entries, (entry) -> entry.id is id
-    $.saveDelete(id)
 
   render: ->
     theme.apply (t) =>
@@ -126,7 +125,7 @@ class Footer extends Component
     $.visibility = visibility
 
   clearCompleted: ->
-    $.entries = $.incompletedEntries
+    remove($.entries, 'completed')
 
   render: ->
     theme.apply (t) =>
