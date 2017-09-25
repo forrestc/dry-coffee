@@ -211,7 +211,7 @@ defaultTheme = new Theme
   'filter.current':
     _as: '@filter'
     borderColor: 'rgba(175, 47, 47, 0.2)'
-  clearButton:
+  clearBtn:
     float: 'right'
     position: 'relative'
     lineHeight: '20px'

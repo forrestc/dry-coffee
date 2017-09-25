@@ -9,10 +9,10 @@ class Api
   request: (method, path, obj = null) ->
     try
       opts =
+        method: method
         headers:
           'Accept': 'application/json'
           'Content-Type': 'application/json'
-        method: method
       opts.body = JSON.stringify obj if obj
 
       res = await fetch("#{HOST}#{path}", opts)

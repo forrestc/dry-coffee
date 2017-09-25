@@ -13,8 +13,7 @@ class Entry extends Store
       editing: false
       id: load.id or Date.now()
 
-  onUpdate: ->
-    api.patch(@id, @json()) unless @editing
+  onUpdate: -> api.patch(@id, @json()) unless @editing
 
 class TodoStore extends Store
   constructor: ->
@@ -116,15 +115,16 @@ class EntryList extends Component
                 t.taskToggle
                   checked: entry.completed
                   onChange: => @check(entry.id)
-                labelOpts = { onDoubleClick: => @edit(entry.id) }
-                t.with('entryLabel', pick(entry, 'completed')) labelOpts, entry.description
+                t.with('entryLabel', pick(entry, 'completed'))
+                  onDoubleClick: => @edit(entry.id)
+                  entry.description
                 t.destroyButton { onClick: => @delete(entry.id) }
 
 class Footer extends Component
   changeVisibility: (visibility) ->
     $.visibility = visibility
 
-  clearCompleted: ->
+  clear: ->
     remove($.entries, 'completed')
 
   render: ->
@@ -138,9 +138,11 @@ class Footer extends Component
               current = (visibility is $.visibility)
               t.with('filter', current: current) buttonOpts, visibility
 
-          completedCount = $.completedEntries.length
-          if completedCount > 0
-            t.clearButton { onClick: @clearCompleted }, "Clear completed (#{completedCount})"
+          completions = $.completedEntries.length
+          if completions > 0
+            t.clearBtn
+              onClick: @clear
+              "Clear completed (#{completions})"
 
 class Todo extends Component
   render: ->
