@@ -22,15 +22,14 @@ class TodoStore extends Store
       visibility: 'All'
       input: ''
 
-      completedEntries: -> filter(@entries, 'completed')
-      incompletedEntries: -> filter(@entries, ['completed', false])
       visibleEntries: ->
         switch @visibility
           when 'Completed' then @completedEntries
           when 'Active' then @incompletedEntries
           else @entries
 
-      completedCount: -> @completedEntries.length
+      completedEntries: -> filter(@entries, 'completed')
+      incompletedEntries: -> filter(@entries, ['completed', false])
       entriesLeft: ->
         count = @incompletedEntries.length
         switch count
