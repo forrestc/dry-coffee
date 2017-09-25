@@ -118,7 +118,7 @@ class EntryList extends Component
                 t.with('entryLabel', pick(entry, 'completed'))
                   onDoubleClick: => @edit(entry.id)
                   entry.description
-                t.destroyButton { onClick: => @delete(entry.id) }
+                t.destroyBtn { onClick: => @delete(entry.id) }
 
 class Footer extends Component
   changeVisibility: (visibility) ->

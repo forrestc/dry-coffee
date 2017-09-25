@@ -106,7 +106,7 @@ defaultTheme = new Theme
     padding: 0
     '&:last-child':
       marginBottom: -1
-  destroyButton:
+  destroyBtn:
     _as: 'button'
     display: 'none'
     position: 'absolute'
