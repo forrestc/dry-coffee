@@ -6,48 +6,42 @@ import api from './api'
 # Stores
 
 class Entry extends Store
-  constructor: (description, load = {}) ->
-    super
-      description: description
-      completed: load.completed or false
-      editing: false
-      id: load.id or Date.now()
+  setup: (load = {}) ->
+    description: load?.description or ''
+    completed: load?.completed or false
+    editing: false
+    id: load?.id or Date.now()
 
   onUpdate: -> api.patch(@id, @json()) unless @editing
 
 class TodoStore extends Store
-  constructor: ->
-    super
-      entries: []
-      visibility: 'All'
-      input: ''
+  setup: ->
+    entries: []
+    visibility: 'All'
+    input: ''
 
-      visibleEntries: ->
-        switch @visibility
-          when 'Completed' then @completedEntries
-          when 'Active' then @incompletedEntries
-          else @entries
+    visibleEntries: ->
+      switch @visibility
+        when 'Completed' then @completedEntries
+        when 'Active' then @incompletedEntries
+        else @entries
 
-      completedEntries: -> filter(@entries, 'completed')
-      incompletedEntries: -> filter(@entries, ['completed', false])
-      entriesLeft: ->
-        count = @incompletedEntries.length
-        switch count
-          when 0 then ''
-          when 1 then '1 item left'
-
-  onEntriesCreate: (entry) -> api.create(entry) unless @loading
-  onEntriesDelete: (entry) -> api.delete(entry.id)
+    completedEntries: -> filter(@entries, 'completed')
+    incompletedEntries: -> filter(@entries, ['completed', false])
+    entriesLeft: ->
+      count = @incompletedEntries.length
+      switch count
+        when 0 then ''
+        when 1 then '1 item left'
 
   load: () ->
-    @loading = true
     for obj in (await api.list())
-      @entries.push new Entry(obj.description, obj)
-    @loading = false
+      @entries.push new Entry(obj)
+
+  onEntriesCreate: (entry) -> api.create(entry)
+  onEntriesDelete: (entry) -> api.delete(entry.id)
 
 export $ = new TodoStore
-window.store = $
-$.load()
 
 # Components
 
@@ -56,7 +50,7 @@ class Input extends Component
     $.input = input
 
   add: ->
-    entry = new Entry($.input)
+    entry = new Entry(description: $.input)
     $.entries.push entry
     $.input = ''
 

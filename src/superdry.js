@@ -9,7 +9,12 @@ import styled from 'styled-jss'
 import { capitalize, forEach, isObject, merge, omit } from 'lodash'
 
 export class Store {
-  constructor(obj) {
+  constructor(load) {
+    let obj = {}
+    if (typeof(this.setup) === 'function') {
+      obj = this.setup(load)
+    }
+
     let observableAttrs = []
     for (let attrName in obj) {
       let val = obj[attrName]
@@ -21,6 +26,17 @@ export class Store {
     }
     const observable = extendObservable(this, obj)
 
+    let loading = false
+    if (typeof(this.load) === 'function') {
+      const fn = () => {
+        loading = true
+        this.load().then( () => {
+          loading = false
+        })
+      }
+      fn.bind(this)()
+    }
+
     if (this.onUpdate) {
       observe(observable, this.onUpdate.bind(this))
     }
@@ -28,15 +44,21 @@ export class Store {
       let attr = observable[attrName]
 
       let fnUpdate = 'on' + capitalize(attrName) + 'Update'
-      if (this[fnUpdate])
-        observe(attr, this[fnUpdate].bind(this))
+      if (this[fnUpdate]) {
+        const fn = () => {
+          if (!loading) this[fnUpdate]()
+        }
+        observe(attr, fn.bind(this))
+      }
 
       if (isObservableArray(attr)) {
         let fnCreate = 'on' + capitalize(attrName) + 'Create'
         if (this[fnCreate]) {
           const fn = (change) => {
-            if ((change.type === 'splice') && (change.added[0]))
-              this[fnCreate](toJS(change.added[0]))
+            if (!loading) {
+              if ((change.type === 'splice') && (change.added[0]))
+                this[fnCreate](toJS(change.added[0]))
+            }
           }
           observe(observable[attrName], fn.bind(this))
         }
@@ -44,8 +66,10 @@ export class Store {
         let fnDelete = 'on' + capitalize(attrName) + 'Delete'
         if (this[fnDelete]) {
           const fn = (change) => {
-            if ((change.type === 'splice') && (change.removed[0]))
-              this[fnDelete](toJS(change.removed[0]))
+            if (!loading) {
+              if ((change.type === 'splice') && (change.removed[0]))
+                this[fnDelete](toJS(change.removed[0]))
+            }
           }
           observe(observable[attrName], fn.bind(this))
         }
