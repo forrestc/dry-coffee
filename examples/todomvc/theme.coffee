@@ -33,7 +33,9 @@ defaultTheme = new Theme
     extends: 'label'
     display: 'none'
   edit:
-    extends: 'input'
+    extends:
+      element: 'input'
+      autoFocus: true
     position: 'relative'
     margin: 0
     width: '100%'

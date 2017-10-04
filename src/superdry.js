@@ -119,7 +119,7 @@ export class Theme {
       base: isObject(base) ? base.name : base,
       name: name,
       css: css,
-      defaultArgs: defaultArgs,
+      defaultArgs: merge(defaultArgs, base.defaultArgs),
       component: styled(root)(css)
     }
   }

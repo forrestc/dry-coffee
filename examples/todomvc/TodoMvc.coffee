@@ -58,7 +58,6 @@ class Input extends Component
     theme.apply (t) =>
       t.newTodo
         placeholder: "What needs to be done?"
-        autoFocus: true
         value: $.input
         name: "newTodo"
         onInput: @updateField
@@ -100,7 +99,6 @@ class EntryList extends Component
                 t.taskEdit
                   value: entry.description
                   id: entry.id
-                  autoFocus: true
                   onInput: (text) => @update(entry.id, text)
                   onBlur: => @edit(entry.id, false)
                   onEnter: => @edit(entry.id, false)
