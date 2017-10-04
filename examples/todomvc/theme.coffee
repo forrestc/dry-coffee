@@ -19,7 +19,7 @@ defaultTheme = new Theme
     boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1)'
 
   header:
-    _as: 'h1'
+    extends: 'h1'
     position: 'absolute'
     top: -155
     width: '100%'
@@ -30,10 +30,10 @@ defaultTheme = new Theme
     textRendering: 'optimizeLegibility'
 
   toggleLabel:
-    _as: 'label'
+    extends: 'label'
     display: 'none'
   edit:
-    _as: 'input'
+    extends: 'input'
     position: 'relative'
     margin: 0
     width: '100%'
@@ -50,7 +50,7 @@ defaultTheme = new Theme
     boxSizing: 'border-box'
     fontSmoothing: 'antialiased'
   newTodo:
-    _as: '@edit'
+    extends: 'edit'
     padding: '16px 16px 16px 60px'
     border: 'none'
     background: 'rgba(0, 0, 0, 0.003)'
@@ -62,11 +62,12 @@ defaultTheme = new Theme
     borderTop: '1px solid #e6e6e6'
     visibility: 'visible'
   'main.empty':
-    _as: '@main'
     visibility: 'hidden'
 
   toggle:
-    _as: 'input(checkbox)'
+    extends:
+      element: 'input'
+      type: 'checkbox'
     position: 'absolute'
     outline: 'none'
     transform: 'rotate(90deg)'
@@ -86,12 +87,12 @@ defaultTheme = new Theme
       color: '#737373'
 
   list:
-    _as: 'ul'
+    extends: 'ul'
     margin: 0
     padding: 0
     listStyle: 'none'
   task:
-    _as: 'li'
+    extends: 'li'
     position: 'relative'
     fontSize: 24
     borderBottom: '1px solid #ededed'
@@ -101,13 +102,13 @@ defaultTheme = new Theme
       display: 'block'
       color: '#af5b5e'
   'task.editing':
-    _as: '@task'
+    extends: 'task'
     borderBottom: 'none'
     padding: 0
     '&:last-child':
       marginBottom: -1
   destroyBtn:
-    _as: 'button'
+    extends: 'button'
     display: 'none'
     position: 'absolute'
     top: 0
@@ -133,13 +134,15 @@ defaultTheme = new Theme
     '&:hover':
       color: '#af5b5e'
   taskEdit:
-    _as: '@edit'
+    extends: 'edit'
     display: 'block'
     width: 506
     padding: '13px 17px 12px 17px'
     margin: '0 0 0 43px'
   taskToggle:
-    _as: 'input(checkbox)'
+    extends:
+      element: 'input'
+      type: 'checkbox'
     textAlign: 'center'
     width: 40
     height: 40
@@ -155,7 +158,7 @@ defaultTheme = new Theme
     '&:checked:after':
       content: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#bddad5" stroke-width="3"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>\')'
   entryLabel:
-    _as: 'label'
+    extends: 'label'
     whiteSpace: 'pre-line'
     wordBreak: 'break-all'
     padding: '15px 60px 15px 15px'
@@ -164,7 +167,6 @@ defaultTheme = new Theme
     lineHeight: 1.2
     transition: 'color 0.4s'
   'entryLabel.completed':
-    _as: '@entryLabel'
     color: '#d9d9d9'
     textDecoration: 'line-through'
 
@@ -190,7 +192,7 @@ defaultTheme = new Theme
           0 16px 0 -6px #f6f6f6,
           0 17px 2px -6px rgba(0, 0, 0, 0.2) """
   counter:
-    _as: 'span'
+    extends: 'span'
     float: 'left'
     textAlign: 'left'
     fontWeight: 300
@@ -199,7 +201,7 @@ defaultTheme = new Theme
     left: 0
     position: 'absolute'
   filter:
-    _as: 'a'
+    extends: 'a'
     color: 'inherit'
     margin: 3
     padding: '3px 7px'
@@ -209,7 +211,6 @@ defaultTheme = new Theme
     '&:hover':
       borderColor: 'rgba(175, 47, 47, 0.1)'
   'filter.current':
-    _as: '@filter'
     borderColor: 'rgba(175, 47, 47, 0.2)'
   clearBtn:
     float: 'right'
@@ -231,7 +232,7 @@ defaultTheme = new Theme
     lineHeight: 2
     display: 'block'
   infoLink:
-    _as: 'a'
+    extends: 'a'
     color: 'inherit'
     textDecoration: 'none'
     fontWeight: 400

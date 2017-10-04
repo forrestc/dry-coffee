@@ -91,22 +91,24 @@ export class Theme {
     this.coms = {}
     for (let name in components) {
       const def = components[name]
+      let m = name.match(/(\w+)\.(\w+)/)
+      if (m) def['extends'] = m[1]
 
-      // TODO maybe we can use jss 'extends'
-      let elem = def['_as'] || 'div'
-      let m = elem.match(/(\w+)\((\w+)\)/)
+      const base = def['extends']
+      let elem = 'div'
       let defaultArgs = {}
-      if (m) {
-        elem = m[1]
-        defaultArgs.type = m[2]
+      if (typeof(base) === 'string') {
+        elem = base
+      } else if (typeof(base) == 'object') {
+        if (base.element) elem = base.element
+        defaultArgs = omit(base, 'element')
       }
-      this.define(name, elem, omit(def, '_as'), defaultArgs)
+      this.define(name, elem, omit(def, 'extends'), defaultArgs)
     }
   }
 
   define(name, base, css, defaultArgs) {
-    if (base.substring(0, 1) === '@')
-      base = this.coms[base.substring(1)]
+    if (this.coms[base]) base = this.coms[base]
 
     const root = isObject(base) ? base.root : base
     if (isObject(base)) {
