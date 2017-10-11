@@ -57,8 +57,8 @@ class Calendar extends Component
         else
           t.month monthDesc
 
-        t.com Button, onClick: @prevMonth(), label: "<<"
-        t.com Button, onClick: @nextMonth(), label: ">>"
+        t.com Button, onClick: @prevMonth(), label: '<<'
+        t.com Button, onClick: @nextMonth(), label: '>>'
         t.table =>
           t.thead =>
             t.tr =>

@@ -2,7 +2,7 @@ import { Theme } from '../superdry'
 defaultTheme = new Theme
   wrapper:
     visibility: 'visible !important'
-    font: "14px 'Helvetica Neue', Helvetica, Arial, sans-serif"
+    font: '14px "Helvetica Neue", Helvetica, Arial, sans-serif'
     lineHeight: '1.4em'
     background: '#f5f5f5'
     color: '#4d4d4d'
@@ -104,7 +104,6 @@ defaultTheme = new Theme
       display: 'block'
       color: '#af5b5e'
   'task.editing':
-    extends: 'task'
     borderBottom: 'none'
     padding: 0
     '&:last-child':
@@ -187,12 +186,12 @@ defaultTheme = new Theme
         left: 0
         height: 50
         overflow: 'hidden'
-        boxShadow: """
+        boxShadow: '
           0 1px 1px rgba(0, 0, 0, 0.2),
           0 8px 0 -3px #f6f6f6,
           0 9px 1px -3px rgba(0, 0, 0, 0.2),
           0 16px 0 -6px #f6f6f6,
-          0 17px 2px -6px rgba(0, 0, 0, 0.2) """
+          0 17px 2px -6px rgba(0, 0, 0, 0.2)'
   counter:
     extends: 'span'
     float: 'left'

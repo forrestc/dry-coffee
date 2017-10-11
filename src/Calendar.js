@@ -103,11 +103,11 @@ Calendar = class Calendar extends Component {
         }
         t.com(Button, {
           onClick: this.prevMonth(),
-          label: "<<"
+          label: '<<'
         });
         t.com(Button, {
           onClick: this.nextMonth(),
-          label: ">>"
+          label: '>>'
         });
         return t.table(() => {
           t.thead(() => {

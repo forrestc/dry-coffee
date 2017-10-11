@@ -57,9 +57,9 @@ class Input extends Component
   render: ->
     theme.apply (t) =>
       t.newTodo
-        placeholder: "What needs to be done?"
+        placeholder: 'What needs to be done?'
         value: $.input
-        name: "newTodo"
+        name: 'newTodo'
         onInput: @updateField
         onEnter: @add
 
@@ -88,7 +88,7 @@ class EntryList extends Component
     theme.apply (t) =>
       t.with('main', empty: isEmpty($.entries)) =>
         t.toggle
-          name: "toggle"
+          name: 'toggle'
           checked: every($.entries, 'completed')
           onChange: @checkAll
         t.toggleLabel { for: 'toggle' }, 'Mark all as complete'
@@ -145,12 +145,12 @@ class Todo extends Component
           t.com EntryList
           t.com Footer
         t.info ->
-          t.infoLine "Double-click to edit a todo"
+          t.infoLine 'Double-click to edit a todo'
           t.infoLine ->
-            t.span "Written by "
-            t.infoLink href: "https://github.com/forrestc", "Forrest Cao"
+            t.span 'Written by '
+            t.infoLink href: 'https://github.com/forrestc', 'Forrest Cao'
           t.infoLine ->
-            t.span "Not yet part of "
-            t.infoLink href: "http://todomvc.com", "TodoMVC"
+            t.span 'Not yet part of '
+            t.infoLink href: 'http://todomvc.com', 'TodoMVC'
 
 export default Todo
