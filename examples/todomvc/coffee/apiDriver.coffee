@@ -1,4 +1,4 @@
-class Api
+class ApiDriver
   HOST = 'http://127.0.0.1:3000'
 
   list: -> @request('GET', '/entries')
@@ -20,4 +20,4 @@ class Api
     catch e
       console.error e
 
-export default new Api
+export default new ApiDriver

@@ -5,7 +5,7 @@
   "scripts": {
     "compile": "coffee -w -o ./src -c ./coffee",
     "start": "coffee index.coffee",
-    "relay": "relay-compiler --src ./app/javascript/components/ --schema ./app/graphql/schema.graphql",
+    "api": "coffee api.coffee",
     "lint": "eslint src"
   },
   "repository": {

@@ -1,7 +1,7 @@
 import { every, find, filter, isEmpty, pick, remove } from 'lodash'
 import { Component, Store } from 'superdry'
 import theme from './theme'
-import api from './api'
+import api from './apiDriver'
 
 # Stores
 
