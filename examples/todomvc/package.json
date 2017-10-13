@@ -1,0 +1,55 @@
+{
+  "name": "superdry-todomvc",
+  "version": "1.0.0",
+  "description": "A sample project of using superdry",
+  "scripts": {
+    "compile": "coffee -w -o ./src -c ./coffee",
+    "start": "coffee index.coffee",
+    "relay": "relay-compiler --src ./app/javascript/components/ --schema ./app/graphql/schema.graphql",
+    "lint": "eslint src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/forrestc/superdry.git"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "mobx",
+    "coffeescript"
+  ],
+  "author": "Forrest Cao <forrest@factual.com> (http://github.com/forrestc)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/forrestc/superdry/issues"
+  },
+  "homepage": "http://github.com/forrestc/superdry",
+  "devDependencies": {
+    "babel-polyfill": "^6.0.16",
+    "babel-preset-stage-0": "^6.0.15",
+    "babel-core": "^6.9.1",
+    "babel-eslint": "^6.1.0",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-regenerator": "6.26.0",
+    "babel-plugin-relay": "^1.0.1",
+    "babel-preset-env": "^1.5.1",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-1": "^6.5.0",
+    "eslint": "^3.0.0",
+    "eslint-plugin-babel": "^3.3.0",
+    "eslint-plugin-flowtype": "^2.15.0",
+    "eslint-plugin-react": "^5.1.1",
+    "react-hot-loader": "^3.0.0-beta.2",
+    "relay-compiler": "^1.0.0",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1",
+    "body-parser": "latest",
+    "cors": "latest",
+    "express": "latest"
+  },
+  "dependencies": {
+    "coffeescript": "^2.0.1",
+    "superdry": "file:../.."
+  }
+}
