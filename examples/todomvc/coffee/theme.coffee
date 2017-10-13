@@ -1,4 +1,4 @@
-import { Theme } from '../superdry'
+import { Theme } from 'superdry'
 defaultTheme = new Theme
   wrapper:
     visibility: 'visible !important'
