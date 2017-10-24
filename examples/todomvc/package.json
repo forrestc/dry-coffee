@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A sample project of using superdry",
   "scripts": {
-    "compile": "coffee -w -o ./src -c ./coffee",
+    "compile": "coffee -w -o ./js -c ./coffee",
     "start": "coffee index.coffee",
     "api": "coffee api.coffee",
     "lint": "eslint src"

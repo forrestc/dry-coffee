@@ -4,7 +4,7 @@
   "description": "A super DRY javascript framework that integrates React, Mobx, and Coffeescript v2.",
   "main": "lib/superdry.js",
   "scripts": {
-    "compile": "babel-compile -p es2015 src:lib",
+    "compile": "babel-compile -p env src:lib",
     "lint": "eslint src"
   },
   "repository": {
