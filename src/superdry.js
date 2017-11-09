@@ -136,6 +136,21 @@ export class Theme {
               }
             }
 
+            if (attrs.onArrowDown || attrs.onArrowUp || attrs.onTab) {
+              attrs.onKeyDown = function (e) {
+                if (attrs.onArrowDown && e.which === 40) {
+                  attrs.onArrowDown()
+                  e.preventDefault()
+                } else if (attrs.onArrowUp && e.which === 38) {
+                  attrs.onArrowUp()
+                  e.preventDefault()
+                } else if (attrs.onTab && e.which === 9) {
+                  attrs.onTab()
+                  e.preventDefault()
+                }
+              }
+            }
+
             if (attrs.onInput) {
               attrs.onChange = function (e) {
                 attrs.onInput(e.target.value)
